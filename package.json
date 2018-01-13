@@ -1,4 +1,14 @@
 {
+  "name": "pokemongo-tools",
+  "version": "1.0.0",
+  "description": "Tools for generating compiled datasets for an EX-raid map",
+  "keywords": [
+    "pokemongo",
+    "s2"
+  ],
+  "homepage": "https://github.com/xiankai/pokemongo-tools",
+  "bugs": "https://github.com/xiankai/pokemongo-tools/issues",
+  "license": "MIT",
   "dependencies": {
     "@mapbox/s2": "^0.5.1",
     "csv-parse": "^2.0.0",
