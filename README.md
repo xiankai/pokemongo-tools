@@ -5,8 +5,8 @@ Linked Repo: https://github.com/xiankai/sg-pokemongo-ex-raid-map
 # Installation
 This assumes basic knowledge of `node`, `npm` or `yarn`.
 
-1. Clone this repo
-2. Run `yarn` to install dependencies. 
+1. `yarn add pokemongo-tools`
+2. `yarn` to install dependencies. 
     - You must be on node 6 to compile @mapbox/s2-node on OSX, but you should switch to node 8+ for better performance afterwards.
     - For reference, it takes 55s to process 1.8k gyms on v6.12.2 yet only 17s on v9.3.0
 
