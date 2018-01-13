@@ -9,6 +9,7 @@
   "homepage": "https://github.com/xiankai/pokemongo-tools",
   "bugs": "https://github.com/xiankai/pokemongo-tools/issues",
   "license": "MIT",
+  "engines" : { "node" : "~6.12.2" },
   "dependencies": {
     "@mapbox/s2": "^0.5.1",
     "csv-parse": "^2.0.0",
