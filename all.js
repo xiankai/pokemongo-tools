@@ -35,9 +35,9 @@ const parks = fs
 
 const s2 = JSON.parse(fs.readFileSync('s2.geojson')).features;
 
-const matched_gyms = gyms.map(([gym, ...coordinates], i) => {
-	// requires LngLat for d3.geoContains
-	coordinates.reverse();
+const matched_gyms = gyms.map(([name, lat, lng], i) => {
+	// requires LngLat for d3.geoContains, and also GeoJSON spec.
+	const coordinates = [+lng, +lat];
 	let terrains = [];
 	let s2Cell;
 	console.log(i);
@@ -60,8 +60,10 @@ const matched_gyms = gyms.map(([gym, ...coordinates], i) => {
 		}
 	});
 
-	// reverse back
-	coordinates.reverse();
+	const exraid = exraids_combined.find(r => r.name.trim() === name.trim());
+	const dates = exraid ? exraid.dates.map(d => d.slice(0, 'YYYY-MM-DD'.length)) // trim out time for now
+	 : [];
+
 	return {
 		type: 'Feature',
 		geometry: {
@@ -69,9 +71,9 @@ const matched_gyms = gyms.map(([gym, ...coordinates], i) => {
 			coordinates,
 		},
 		properties: {
-			name: gym,
+			name,
 			terrains,
-			dates: exraids_combined[gym] || [],
+			dates,
 			s2Cell,
 		},
 	};
