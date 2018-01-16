@@ -37,7 +37,7 @@ Given 2 coordinates to define a rectangular boundary for your desired area, it w
 ### Usage
 `node s2.js coordinates.txt`
 
-### Optionally use a different key for the GeoJSON property
+### Optionally use a different key (default is `order`) for the GeoJSON property
 `node s2.js coordinates.txt s2Cell`
 
 # all.js
@@ -65,7 +65,7 @@ Some general notes about gym data and CSV files:
 
 ### exraids.csv
 - This will likely be updated frequently as your data arrives in. Each column gets its own date, and empty cells means that the location did not have a raid for that wave. 
-- **The first row will contain the gym name and ex raid dates (in YYYY-MM-DD format)**.
+- **The first row should first contain any string ("Gym Name"), and then ex raid dates (in YYYY-MM-DD format)**.
 - In the columns, either put the start timing of the raid (in 24 hour format) or any other non-empty string (if you don't know, or don't want to add the raid time). All raids are assumed to be 45 minutes long.
 ```
 | Gym Name           | 2017-12-03 | 2017-12-18 | 2018-01-09 |
