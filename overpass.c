@@ -19,14 +19,14 @@
     way[landuse=farmyard];
 
 //Tags that have been linked to nests but not yet proven to work for EX Raids
-    way[natural=plateau];
-    way[boundary=national_park]; 
-    way[leisure=nature_reserve];
-    way[natural=heath];
-    way[natural=moor];
-    way[landuse=farmland];
-    way[landuse=orchard];
-    way[landuse=vineyard];
+//    way[natural=plateau];
+//    way[boundary=national_park]; 
+//    way[leisure=nature_reserve];
+//    way[natural=heath];
+//    way[natural=moor];
+//    way[landuse=farmland];
+//    way[landuse=orchard];
+//    way[landuse=vineyard];
 );
 out body;
 >;

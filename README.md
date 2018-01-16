@@ -13,6 +13,8 @@ This assumes basic knowledge of `node`, `npm` or `yarn`.
 # overpass.c
 OSM query template for https://overpass-turbo.eu/, copied from [this reddit thread](https://www.reddit.com/r/TheSilphRoad/comments/7pq1cx/how_i_created_a_map_of_potential_exraids_and_how/)
 
+Also modified to only show valid park tags.
+
 I originally had one myself but it is outdated with the current research thus far and thus invalid.
 
 It has the `c` extension for formatting as the syntax is derived from C.
