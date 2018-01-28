@@ -6,6 +6,7 @@ const d3 = require('d3-geo');
 const parse = require('csv-parse/lib/sync');
 
 const gyms = parse(fs.readFileSync('gyms.csv'));
+const parks_s2 = parse(fs.readFileSync('parks.csv'));
 const exraids = parse(fs.readFileSync('exraids.csv'));
 const dateLabels = exraids.shift();
 dateLabels.shift();
@@ -24,14 +25,8 @@ const parks = fs
 	.filter(fileName => fileName.match('.park.geojson'))
 	.map(fileName => ({
 		name: fileName.slice(0, -'.park.geojson'.length),
-		data: JSON.parse(fs.readFileSync(fileName)),
+		geoJSON: JSON.parse(fs.readFileSync(fileName)),
 	}))
-	.map(terrain => ({
-		name: terrain.name,
-		features: terrain.data.features.filter(
-			feature => feature.geometry.type === 'Polygon'
-		),
-	}));
 
 const s2 = JSON.parse(fs.readFileSync('s2.geojson')).features;
 
@@ -42,15 +37,17 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 	let s2Cell;
 	console.log(i);
 
-	parks.forEach(({ features, name }) => {
-		features.forEach(feature => {
-			if (
-				d3.geoContains(feature, coordinates) &&
-				terrains.indexOf(name) < 0
-			) {
-				terrains.push(name);
-			}
-		});
+	if (parks_s2.find(([parkName]) => name === parkName)) {
+		terrains.push('Park L20 Cell');
+	}
+
+	parks.forEach(({ geoJSON, name }) => {
+		if (
+			d3.geoContains(geoJSON, coordinates) &&
+			terrains.indexOf(name) < 0
+		) {
+			terrains.push(name);
+		}
 	});
 
 	s2.forEach(s2Feature => {
