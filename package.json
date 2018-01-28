@@ -9,10 +9,15 @@
   "homepage": "https://github.com/xiankai/pokemongo-tools",
   "bugs": "https://github.com/xiankai/pokemongo-tools/issues",
   "license": "MIT",
-  "engines" : { "node" : "~6.12.2" },
+  "engines": {
+    "node": "~6.12.2"
+  },
   "dependencies": {
     "@mapbox/s2": "^0.5.1",
     "csv-parse": "^2.0.0",
     "d3-geo": "^1.9.1"
+  },
+  "scripts": {
+    "s2-parks": "node s2-parks.js"
   }
 }
