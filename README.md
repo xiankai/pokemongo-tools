@@ -22,9 +22,9 @@ It has the `c` extension for formatting as the syntax is derived from C.
 After running the query you should have the option to Export as a GeoJSON file. There is also the option to backdate the query to what the OSM map was at a certain date.
 
 # s2.js
-This will generate the `s2.geojson` required. You should only need to run this once.
+This will generate the `s2_L12.geojson` and `s2_L10.geojson` required. You should only need to run this once.
 
-Given 2 coordinates to define a rectangular boundary for your desired area, it will produce a GeoJSON file containing S2 level 12 cells, labelled with a grid with A-Z for columns and numbers for rows.
+Given 2 coordinates to define a rectangular boundary for your desired area, it will produce a GeoJSON file containing S2 level 12 and level 10 cells, labelled with a grid with A-Z for columns and numbers for rows.
 
 ## Input
 
@@ -34,11 +34,14 @@ Given 2 coordinates to define a rectangular boundary for your desired area, it w
 1.4714, 103.6318
 ```
 
-### Usage
-`node s2.js coordinates.txt`
+### Usage (For L12 cells by default)
+`node s2.js`
+
+### Generate for a different cell level
+`node s2.js 10`
 
 ### Optionally use a different key (default is `order`) for the GeoJSON property
-`node s2.js coordinates.txt s2Cell`
+`node s2.js 10 s2Cell`
 
 # all.js
 This will generate the `all.geojson` required.
@@ -80,7 +83,10 @@ Originally I made this script to allow checking against multiple versions of OSM
 
 If you only wish to use park data from one source, just name it anything as long it has the extension `.park.geojson`.
 
-### s2.geojson (generated from `s2.js`)
+For a more comprehensive source of park map data, look at https://github.com/MzHub/osmcoverer
+
+### s2_L12.geojson (generated from `s2.js`)
+### s2_L10.geojson (generated from `s2.js`)
 
 ### Usage
 The above file names are assumed to be in the same directory.

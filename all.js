@@ -28,13 +28,15 @@ const parks = fs
 		geoJSON: JSON.parse(fs.readFileSync(fileName)),
 	}))
 
-const s2 = JSON.parse(fs.readFileSync('s2.geojson')).features;
+const s2L12 = JSON.parse(fs.readFileSync('s2_L12.geojson')).features;
+const s2L10 = JSON.parse(fs.readFileSync('s2_L10.geojson')).features;
 
 const matched_gyms = gyms.map(([name, lat, lng], i) => {
 	// requires LngLat for d3.geoContains, and also GeoJSON spec.
 	const coordinates = [+lng, +lat];
 	let terrains = [];
-	let s2Cell;
+	let S2L12;
+	let S2L10;
 	console.log(i);
 
 	if (parks_s2.find(([parkName]) => name === parkName)) {
@@ -50,10 +52,15 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 		}
 	});
 
-	s2.forEach(s2Feature => {
-		if (d3.geoContains(s2Feature, coordinates)) {
-			s2Cell = s2Feature.properties.order;
-			return false;
+	s2L12.forEach(s2Feature => {
+		if (!S2L12 && d3.geoContains(s2Feature, coordinates)) {
+			S2L12 = s2Feature.properties.order;
+		}
+	});
+
+	s2L10.forEach(s2Feature => {
+		if (!S2L10 && !d3.geoContains(s2Feature, coordinates)) {
+			S2L10 = s2Feature.properties.order;
 		}
 	});
 
@@ -71,7 +78,8 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 			name,
 			terrains,
 			dates,
-			s2Cell,
+			S2L12,
+			S2L10,
 		},
 	};
 });

@@ -8,9 +8,10 @@ const sg = new s2.S2LatLngRect(
 	new s2.S2LatLng(rectangle[1][0], rectangle[1][1]) 
 );
 
+const cellLevel = +process.argv[2] || 12;
 const covering = s2.getCoverSync(sg, {
-	min: 12,
-	max: 12,
+	min: cellLevel,
+	max: cellLevel,
 });
 
 const coveredGeoJSON = covering.map(c => c.toGeoJSON())
@@ -29,7 +30,7 @@ const coveredGeoJSON = covering.map(c => c.toGeoJSON())
     return polygon_2_origin[1] - polygon_1_origin[1];
 });
 
-const key = process.argv[2] || "order";
+const key = process.argv[3] || "order";
 let counter = 0;
 let charCodeCounter = 65; // A
 const geoJSON = {
@@ -54,4 +55,4 @@ const geoJSON = {
 	}),
 };
 
-fs.writeFileSync('s2.geojson', JSON.stringify(geoJSON));
+fs.writeFileSync(`s2_L${cellLevel}.geojson`, JSON.stringify(geoJSON));
