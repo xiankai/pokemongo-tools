@@ -58,8 +58,8 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 
 	s2Cells.forEach(({s2Cell, geoJSON}) => {
 		geoJSON.forEach(s2Feature => {
-			if (!s2CellRef[s2Cell] && d3.geoContains(s2Feature, coordinates)) {
-				s2CellRef[s2Cell] = s2Feature.properties.order;
+			if (!s2CellRef[`S2L${s2Cell}`] && d3.geoContains(s2Feature, coordinates)) {
+				s2CellRef[`S2L${s2Cell}`] = s2Feature.properties.order;
 			}
 		});
 	});
@@ -78,8 +78,7 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 			name,
 			terrains,
 			dates,
-			S2L12,
-			S2L10,
+			...s2CellRef,
 		},
 	};
 });
