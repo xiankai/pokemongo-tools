@@ -47,11 +47,12 @@ const geoJSON = {
 			charCodeCounter++;
 		}
 
-		feature.properties = {
-			[key]: String.fromCharCode(charCodeCounter) + counter,
+		return {
+			geometry: feature,
+			properties: {
+				[key]: String.fromCharCode(charCodeCounter) + counter,
+			}
 		};
-
-		return feature;
 	}),
 };
 
