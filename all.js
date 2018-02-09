@@ -32,7 +32,7 @@ const s2Cells = fs
 	.readdirSync('.')
 	.filter(fileName => fileName.match(/s2_L(\d+).geojson/))
 	.map(fileName => ({
-		s2Cell: fileName.match(/s2_L(\d+).geojson/)[1],
+		s2Cell: +fileName.match(/s2_L(\d+).geojson/)[1],
 		geoJSON: JSON.parse(fs.readFileSync(fileName)).features,
 	}));
 
