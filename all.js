@@ -60,7 +60,7 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 		.filter(({s2Cell}) => s2Cell !== 10)
 		.forEach(({s2Cell, geoJSON}) => {
 		geoJSON.forEach(s2Feature => {
-			if (!s2CellRef[`S2L${s2Cell}`] && d3.geoContains(s2Feature.geometry, coordinates)) {
+			if (!s2CellRef[`S2L${s2Cell}`] && d3.geoContains(s2Feature, coordinates)) {
 				s2CellRef[`S2L${s2Cell}`] = s2Feature.properties.order;
 			}
 		});
@@ -70,7 +70,7 @@ const matched_gyms = gyms.map(([name, lat, lng], i) => {
 		.filter(({s2Cell}) => s2Cell === 10)
 		.forEach(({s2Cell, geoJSON}) => {
 		geoJSON.forEach(s2Feature => {
-			if (!s2CellRef[`S2L${s2Cell}`] && !d3.geoContains(s2Feature.geometry, coordinates)) {
+			if (!s2CellRef[`S2L${s2Cell}`] && !d3.geoContains(s2Feature, coordinates)) {
 				s2CellRef[`S2L${s2Cell}`] = s2Feature.properties.order;
 			}
 		});
