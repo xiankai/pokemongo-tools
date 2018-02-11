@@ -23,5 +23,8 @@
     "eslint-config-prettier": "^2.9.0",
     "prettier": "^1.10.2"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "match_gyms": "node ./all.js"
+  }
 }
