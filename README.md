@@ -21,33 +21,11 @@ It has the `c` extension for formatting as the syntax is derived from C.
 
 After running the query you should have the option to Export as a GeoJSON file. There is also the option to backdate the query to what the OSM map was at a certain date.
 
-# s2.js
-This will generate the `s2_L12.geojson` and `s2_L10.geojson` required. You should only need to run this once.
-
-Given 2 coordinates to define a rectangular boundary for your desired area, it will produce a GeoJSON file containing S2 level 12 and level 10 cells, labelled with a grid with A-Z for columns and numbers for rows.
-
-## Input
-
-### coordinates.txt
-```
-1.2404, 104.0152
-1.4714, 103.6318
-```
-
-### Usage (For L12 cells by default)
-`node s2.js`
-
-### Generate for a different cell level
-`node s2.js 10`
-
-### Optionally use a different key (default is `order`) for the GeoJSON property
-`node s2.js 10 s2Cell`
-
 # all.js
 This will generate the `all.geojson` required.
 
 ## Input
-The following CSV files are required. 
+The following CSV files are required to be in the same folder.
 
 Some general notes about gym data and CSV files:
 - There may be multiple gyms with the same name. You should make sure the names are unique (possibly by appending (2) to the duplicate), because the script will rely on string matching.
@@ -66,6 +44,10 @@ Some general notes about gym data and CSV files:
 | Marymount Station  | 1.347791           | 103.840229 |
 ```
 
+### parks.csv
+- Generated from https://github.com/MzHub/osmcoverer
+- Provide the above `gyms.csv` and appropriate park `GeoJSON` from overpass file to it
+
 ### exraids.csv
 - This will likely be updated frequently as your data arrives in. Each column gets its own date, and empty cells means that the location did not have a raid for that wave. 
 - **The first row should first contain any string ("Gym Name"), and then ex raid dates (in YYYY-MM-DD format)**.
@@ -78,15 +60,10 @@ Some general notes about gym data and CSV files:
 | Foliage Garden     | x          |            |            |
 ```
 
-### *.park.geojson (generated from `overpass.c`)
-Originally I made this script to allow checking against multiple versions of OSM park areas, each of which followed the naming convention of `Jul 2016.park.geojson`, `Jan 2017.park.geojson`, etc.
-
-If you only wish to use park data from one source, just name it anything as long it has the extension `.park.geojson`.
-
-For a more comprehensive source of park map data, look at https://github.com/MzHub/osmcoverer
-
-### s2_L12.geojson (generated from `s2.js`)
-### s2_L10.geojson (generated from `s2.js`)
+### s2_L*.geojson (generated from [s2.js](https://github.com/xiankai/s2-grid))
+- For every cell level you wish to show as a grid, have the corresponding file present.
+    - eg. `s2_L12.geojson`
+- Currently cell levels 10, 12 and 13 are being/have been used in EX-raid distribution.
 
 ### Usage
 The above file names are assumed to be in the same directory.
