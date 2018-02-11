@@ -1,11 +1,14 @@
 const s2 = require('@mapbox/s2');
 const fs = require('fs');
 const coordinates = fs.readFileSync('coordinates.txt');
-const rectangle = coordinates.toString().split('\n').map(c => c.split(', ').map(Number));
+const rectangle = coordinates
+	.toString()
+	.split('\n')
+	.map(c => c.split(', ').map(Number));
 
 const sg = new s2.S2LatLngRect(
-    new s2.S2LatLng(rectangle[0][0], rectangle[0][1]),
-	new s2.S2LatLng(rectangle[1][0], rectangle[1][1]) 
+	new s2.S2LatLng(rectangle[0][0], rectangle[0][1]),
+	new s2.S2LatLng(rectangle[1][0], rectangle[1][1])
 );
 
 const cellLevel = +process.argv[2] || 12;
@@ -14,23 +17,24 @@ const covering = s2.getCoverSync(sg, {
 	max: cellLevel,
 });
 
-const coveredGeoJSON = covering.map(c => c.toGeoJSON())
-.sort((feature_1, feature_2) => {
-    const polygon_1_origin = feature_1.coordinates[0][0];
-    const polygon_2_origin = feature_2.coordinates[0][0];
+const coveredGeoJSON = covering
+	.map(c => c.toGeoJSON())
+	.sort((feature_1, feature_2) => {
+		const polygon_1_origin = feature_1.coordinates[0][0];
+		const polygon_2_origin = feature_2.coordinates[0][0];
 
-    // compare lat
-    return polygon_1_origin[0] - polygon_2_origin[0];
-})
-.sort((feature_1, feature_2) => {
-    const polygon_1_origin = feature_1.coordinates[0][0];
-    const polygon_2_origin = feature_2.coordinates[0][0];
+		// compare lat
+		return polygon_1_origin[0] - polygon_2_origin[0];
+	})
+	.sort((feature_1, feature_2) => {
+		const polygon_1_origin = feature_1.coordinates[0][0];
+		const polygon_2_origin = feature_2.coordinates[0][0];
 
-    // compare lng (reversed for LTR direction)
-    return polygon_2_origin[1] - polygon_1_origin[1];
-});
+		// compare lng (reversed for LTR direction)
+		return polygon_2_origin[1] - polygon_1_origin[1];
+	});
 
-const key = process.argv[3] || "order";
+const key = process.argv[3] || 'order';
 let counter = 0;
 let charCodeCounter = 65; // A
 const geoJSON = {
@@ -38,7 +42,8 @@ const geoJSON = {
 	features: coveredGeoJSON.map((feature, index) => {
 		if (
 			index === 0 ||
-			feature.coordinates[0][0] > coveredGeoJSON[index - 1].coordinates[0][0]
+			feature.coordinates[0][0] >
+				coveredGeoJSON[index - 1].coordinates[0][0]
 		) {
 			counter++;
 		} else {
