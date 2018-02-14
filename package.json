@@ -14,7 +14,8 @@
     "d3-geo": "^1.9.1",
     "googleapis": "^25.0.0",
     "moment": "^2.20.1",
-    "node-fetch": "^2.0.0"
+    "node-fetch": "^2.0.0",
+    "raven": "^2.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

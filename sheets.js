@@ -1,4 +1,8 @@
 require('dotenv').config();
+
+const Raven = require('raven');
+process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
+
 const fs = require('fs');
 const moment = require('moment');
 const fetch = require('node-fetch');
