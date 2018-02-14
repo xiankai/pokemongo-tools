@@ -53,7 +53,6 @@ const fetchSheets = async () => {
 				true
 			).format('YYYY-MM-DD');
 			valueRange.values.forEach(([name, timing]) => {
-				console.log(name);
 				if (exraids_combined[name.trim()]) {
 					exraids_combined[name.trim()].push(date);
 				} else {
@@ -149,14 +148,33 @@ const init = async () => {
 		};
 	};
 
-	// make the magic happen
-	fs.writeFileSync(
-		process.env.OUTPUT_FILENAME,
-		JSON.stringify({
-			type: 'FeatureCollection',
-			features: gyms.map(assignGym),
-		})
-	);
+	const fileName = process.env.OUTPUT_FILENAME || 'all.geojson';
+	const content = JSON.stringify({
+		type: 'FeatureCollection',
+		features: gyms.map(assignGym),
+	});
+
+	if (process.env.GIST_ID) {
+		// make the magic happen
+		const resp = await fetch(
+			`https://api.github.com/gists/${process.env.GIST_ID}`,
+			{
+				method: 'PATCH',
+				headers: new fetch.Headers({
+					Authorization: `token ${process.env.GITHUB_TOKEN}`,
+				}),
+				body: JSON.stringify({
+					files: {
+						[fileName]: {
+							content,
+						},
+					},
+				}),
+			}
+		);
+	} else {
+		fs.writeFileSync(fileName, content);
+	}
 };
 
 init();
