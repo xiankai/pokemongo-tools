@@ -30,5 +30,5 @@ const s2Cells = fs
 
 fs.writeFileSync(
 	'all.geojson',
-	JSON.stringify(matchGyms(parks_s2, exraids_combined, gyms, s2Cells))
+	JSON.stringify(matchGyms({ parks_s2, exraids_combined, gyms, s2Cells }))
 );

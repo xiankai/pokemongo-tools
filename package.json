@@ -26,6 +26,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "match_gyms": "node ./all.js"
+    "match_gyms": "node ./all.js",
+    "sheets": "node ./sheets.js"
   }
 }
