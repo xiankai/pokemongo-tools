@@ -1,4 +1,4 @@
-const app = require('express').createServer();
+const app = require('express')();
 
 require('dotenv').config();
 
@@ -32,6 +32,12 @@ const init = async () => {
 		excluded,
 	});
 
+	console.log(
+		`fetched ${parks.length} parks, ${
+			Object.keys(exraids_combined).length
+		} raids and ${gyms.length} gyms`
+	);
+
 	// gets s2 data
 	const s2Cells = await Promise.all(
 		s2.map(async ({ s2Cell, s2Url }) => {
@@ -44,6 +50,10 @@ const init = async () => {
 		})
 	);
 
+	console.log(
+		`fetched S2 Level ${s2Cells.map(({ s2Cell }) => s2Cell)} cells`
+	);
+
 	const content = matchGyms({
 		exraids_combined,
 		gyms,
@@ -52,11 +62,19 @@ const init = async () => {
 		prettyFormat,
 	});
 
-	// fs.writeFileSync('all.geojson', content);
+	console.log(`parsed ${gyms.length} gyms`);
 
-	pushToGist({ gistId, githubToken, content });
+	await pushToGist({ gistId, githubToken, content });
+
+	console.log('deployed to gist');
+
+	return true;
 };
 
-app.post('/', (req, res) => init);
+app.post('/', (req, res) => {
+	init().then(() => {
+		res.json({ success: true });
+	});
+});
 
 app.listen(process.env.PORT || 3000);
