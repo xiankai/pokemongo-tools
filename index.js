@@ -1,5 +1,5 @@
 module.exports = {
-	matchGyms: require('./lib/match_gyms'),
-	pushToGist: require('./lib/push_to_gist'),
-	fetchFromSheets: require('./lib/fetch_from_sheets'),
+	matchGyms: require('./dist/match_gyms'),
+	pushToGist: require('./dist/push_to_gist'),
+	fetchFromSheets: require('./dist/fetch_from_sheets'),
 };
