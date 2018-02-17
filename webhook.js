@@ -71,9 +71,9 @@ const init = async () => {
 
 app.get('/', (req, res) => {
 	res.send(
-		`<meta name="google-site-verification" content="${
+		`<head><meta name="google-site-verification" content="${
 			process.env.GOOGLE_SITE_VERIFICATION
-		}" />`
+		}" /></head>`
 	);
 });
 
