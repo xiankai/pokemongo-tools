@@ -1,5 +1,3 @@
-const app = require('express')();
-
 const Raven = require('raven');
 process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
 
@@ -68,18 +66,4 @@ const init = async () => {
 	return true;
 };
 
-app.get('/', (req, res) => {
-	res.send(
-		`<head><meta name="google-site-verification" content="${
-			process.env.GOOGLE_SITE_VERIFICATION
-		}" /></head>`
-	);
-});
-
-app.post('/', (req, res) => {
-	init().then(() => {
-		res.json({ success: true });
-	});
-});
-
-app.listen(process.env.PORT || 3000);
+init();
