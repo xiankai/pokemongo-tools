@@ -5,9 +5,7 @@ process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
 
 const fs = require('fs');
 const fetch = require('node-fetch');
-const matchGyms = require('./lib/match_gyms');
-const fetchFromSheets = require('./lib/fetch_from_sheets');
-const pushToGist = require('./lib/push_to_gist');
+const { matchGyms, fetchFromSheets, pushToGist } = require('./lib');
 
 const auth = process.env.GOOGLE_API_KEY;
 const spreadsheetId = process.env.SPREADSHEET_ID;

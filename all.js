@@ -1,7 +1,7 @@
 const fs = require('fs');
 const d3 = require('d3-geo');
 const parse = require('csv-parse/lib/sync');
-const matchGyms = require('./lib/match_gyms');
+const { matchGyms } = require('./lib');
 
 const gyms = parse(fs.readFileSync('gyms.csv'));
 const parks_s2 = parse(fs.readFileSync('parks.csv'));

@@ -1,6 +1,6 @@
 {
   "name": "pokemongo-tools",
-  "version": "2.0.1",
+  "version": "2.0.6",
   "description": "Tools for generating compiled datasets for an EX-raid map",
   "keywords": [
     "pokemongo",
@@ -20,13 +20,14 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "dotenv": "^5.0.0",
     "eslint": "^4.17.0",
     "eslint-plugin-prettier": "^2.6.0",
     "prettier": "^1.10.2"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "match_gyms": "node ./all.js",
     "sheets": "node ./sheets.js",

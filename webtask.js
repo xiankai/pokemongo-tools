@@ -1,4 +1,5 @@
 const Raven = require('raven');
+const fetch = require('node-fetch');
 const { matchGyms, pushToGist, fetchFromSheets } = require('pokemongo-tools');
 
 module.exports = (context, callback) => {
