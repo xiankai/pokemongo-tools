@@ -12,6 +12,7 @@
   "dependencies": {
     "csv-parse": "^2.0.0",
     "d3-geo": "^1.9.1",
+    "express": "^4.16.2",
     "googleapis": "^25.0.0",
     "moment": "^2.20.1",
     "node-fetch": "^2.0.0",
@@ -31,6 +32,7 @@
   "scripts": {
     "match_gyms": "node ./all.js",
     "sheets": "node ./sheets.js",
-    "prepublishOnly": "babel lib -d dist"
+    "prepublishOnly": "babel lib -d dist",
+    "start": "node webhook.js"
   }
 }
