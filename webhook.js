@@ -69,6 +69,14 @@ const init = async () => {
 	return true;
 };
 
+app.get('/', (req, res) => {
+	res.send(
+		`<meta name="google-site-verification" content="${
+			process.env.GOOGLE_SITE_VERIFICATION
+		}" />`
+	);
+});
+
 app.post('/', (req, res) => {
 	init().then(() => {
 		res.json({ success: true });
