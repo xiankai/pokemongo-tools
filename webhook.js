@@ -1,7 +1,5 @@
 const app = require('express')();
 
-require('dotenv').config();
-
 const Raven = require('raven');
 process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
 
