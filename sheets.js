@@ -12,10 +12,12 @@ const spreadsheetId = process.env.SPREADSHEET_ID;
 const gymSheet = process.env.GYMS;
 const parkSheet = process.env.PARKS;
 const excluded = process.env.EXCLUDED.split(',');
-const s2 = process.env.S2_LEVELS.split(',').map(s2Cell => ({
-	s2Cell: +s2Cell,
-	s2Url: process.env.S2_URL.replace('{c}', s2Cell),
-}));
+const s2 = process.env.S2_LEVELS.split(',')
+	.filter(Boolean)
+	.map(s2Cell => ({
+		s2Cell: +s2Cell,
+		s2Url: process.env.S2_URL.replace('{c}', s2Cell),
+	}));
 const gistId = process.env.GIST_ID;
 const githubToken = process.env.GITHUB_TOKEN;
 const prettyFormat = +process.env.PRETTY_FORMAT;
