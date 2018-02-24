@@ -20,6 +20,7 @@ const s2 = process.env.S2_LEVELS.split(',')
 	}));
 const gistId = process.env.GIST_ID;
 const githubToken = process.env.GITHUB_TOKEN;
+const dateFormat = process.env.DATE_FORMAT;
 const prettyFormat = +process.env.PRETTY_FORMAT;
 
 const init = async () => {
@@ -29,6 +30,7 @@ const init = async () => {
 		spreadsheetId,
 		gymSheet,
 		parkSheet,
+		dateFormat,
 		excluded,
 	});
 

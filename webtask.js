@@ -14,6 +14,7 @@ module.exports = (context, callback) => {
 		S2_URL: s2Url,
 		GIST_ID: gistId,
 		GITHUB_TOKEN: githubToken,
+		DATE_FORMAT: dateFormat,
 		PRETTY_FORMAT: prettyFormat,
 	} = context.secrets;
 
@@ -29,6 +30,7 @@ module.exports = (context, callback) => {
 		spreadsheetId,
 		gymSheet,
 		parkSheet,
+		dateFormat,
 		excluded,
 	}).then(({ parks, exraids_combined, gyms }) => {
 		Promise.all(
