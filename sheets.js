@@ -9,6 +9,7 @@ const { matchGyms, fetchFromSheets, pushToGist } = require('./lib');
 
 const auth = process.env.GOOGLE_API_KEY;
 const spreadsheetId = process.env.SPREADSHEET_ID;
+const timeFormat = process.env.TIME_FORMAT;
 const gymSheet = process.env.GYMS;
 const parkSheet = process.env.PARKS;
 const excluded = process.env.EXCLUDED.split(',');
@@ -31,6 +32,7 @@ const init = async () => {
 		gymSheet,
 		parkSheet,
 		dateFormat,
+		timeFormat,
 		excluded,
 	});
 
