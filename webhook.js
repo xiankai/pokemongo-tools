@@ -1,9 +1,8 @@
-require('dotenv').config();
+const app = require('express')();
 
 const Raven = require('raven');
 process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
 
-const fs = require('fs');
 const fetch = require('node-fetch');
 const { matchGyms, fetchFromSheets, pushToGist } = require('./lib');
 
@@ -12,12 +11,10 @@ const spreadsheetId = process.env.SPREADSHEET_ID;
 const gymSheet = process.env.GYMS;
 const parkSheet = process.env.PARKS;
 const excluded = process.env.EXCLUDED.split(',');
-const s2 = process.env.S2_LEVELS.split(',')
-	.filter(Boolean)
-	.map(s2Cell => ({
-		s2Cell: +s2Cell,
-		s2Url: process.env.S2_URL.replace('{c}', s2Cell),
-	}));
+const s2 = process.env.S2_LEVELS.split(',').map(s2Cell => ({
+	s2Cell: +s2Cell,
+	s2Url: process.env.S2_URL.replace('{c}', s2Cell),
+}));
 const gistId = process.env.GIST_ID;
 const githubToken = process.env.GITHUB_TOKEN;
 const prettyFormat = +process.env.PRETTY_FORMAT;
@@ -32,6 +29,12 @@ const init = async () => {
 		excluded,
 	});
 
+	console.log(
+		`fetched ${parks.length} parks, ${
+			Object.keys(exraids_combined).length
+		} raids and ${gyms.length} gyms`
+	);
+
 	// gets s2 data
 	const s2Cells = await Promise.all(
 		s2.map(async ({ s2Cell, s2Url }) => {
@@ -44,6 +47,10 @@ const init = async () => {
 		})
 	);
 
+	console.log(
+		`fetched S2 Level ${s2Cells.map(({ s2Cell }) => s2Cell)} cells`
+	);
+
 	const content = matchGyms({
 		exraids_combined,
 		gyms,
@@ -52,9 +59,27 @@ const init = async () => {
 		prettyFormat,
 	});
 
-	// fs.writeFileSync('all.geojson', content);
+	console.log(`parsed ${gyms.length} gyms`);
 
-	pushToGist({ gistId, githubToken, content });
+	await pushToGist({ gistId, githubToken, content });
+
+	console.log('deployed to gist');
+
+	return true;
 };
 
-init();
+app.get('/', (req, res) => {
+	res.send(
+		`<head><meta name="google-site-verification" content="${
+			process.env.GOOGLE_SITE_VERIFICATION
+		}" /></head>`
+	);
+});
+
+app.post('/', (req, res) => {
+	init().then(() => {
+		res.json({ success: true });
+	});
+});
+
+app.listen(process.env.PORT || 3000);
