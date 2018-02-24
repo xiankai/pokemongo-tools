@@ -3,7 +3,6 @@ require('dotenv').config();
 const Raven = require('raven');
 process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
 
-const fs = require('fs');
 const fetch = require('node-fetch');
 const { matchGyms, fetchFromSheets, pushToGist } = require('./lib');
 
@@ -56,6 +55,7 @@ const init = async () => {
 		prettyFormat,
 	});
 
+	// const fs = require('fs');
 	// fs.writeFileSync('all.geojson', content);
 
 	pushToGist({ gistId, githubToken, content });
