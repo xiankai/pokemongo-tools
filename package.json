@@ -26,10 +26,12 @@
     "dotenv": "^5.0.0",
     "eslint": "^4.17.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "jest": "^22.4.3",
     "prettier": "^1.10.2"
   },
   "main": "dist/index.js",
   "scripts": {
+    "test": "jest",
     "match_gyms": "node ./all.js",
     "sheets": "node ./sheets.js",
     "prepublishOnly": "babel lib -d dist",
