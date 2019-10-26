@@ -2,7 +2,12 @@ const Raven = require('raven');
 process.env.SENTRY_DSN && Raven.config(process.env.SENTRY_DSN).install();
 
 const fetch = require('node-fetch');
-const { matchGyms, fetchFromSheets, pushToGist } = require('./lib');
+const {
+	matchGyms,
+	checkSheets,
+	fetchFromSheets,
+	pushToGist,
+} = require('./lib');
 
 const auth = process.env.GOOGLE_API_KEY;
 const spreadsheetId = process.env.SPREADSHEET_ID;
@@ -22,6 +27,15 @@ const timeFormat = process.env.TIME_FORMAT;
 const prettyFormat = +process.env.PRETTY_FORMAT;
 
 const init = async () => {
+	const shouldProceed = await checkSheets({
+		auth,
+		spreadsheetId,
+	});
+
+	if (!shouldProceed) {
+		return;
+	}
+
 	// gets gyms, parks and raid data
 	const { parks, exraids_combined, gyms } = await fetchFromSheets({
 		auth,
@@ -69,7 +83,7 @@ const init = async () => {
 
 	console.log('deployed to gist');
 
-	return true;
+	return;
 };
 
 init();
